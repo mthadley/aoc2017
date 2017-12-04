@@ -7,7 +7,30 @@ import qualified Data.Vector as V ((!?), fromList, ifoldl, length)
 
 main :: IO ()
 main = do
-  putStrLn $ show $ manhattanDistance 325489
+  passwords <- readPasswords
+  putStrLn $ show $ countWith noAnagrams passwords
+
+--
+-- Day 4
+--
+
+countWith :: (String -> Bool) -> [String] -> Int
+countWith f = length . filter f
+
+readPasswords :: IO [String]
+readPasswords = lines <$> readFile "src/day4_passwords.txt"
+
+hasDuplicateWords :: String -> Bool
+hasDuplicateWords = all ((==) 1 . length) . group . sort . words
+
+noAnagrams :: String -> Bool
+noAnagrams input = not $ any otherAnagrams $ zip [1..] pws
+  where
+    pws = words input
+    otherAnagrams (i, word) = any (isAnagram word) $ drop i pws
+
+isAnagram :: String -> String -> Bool
+isAnagram a b = sort a == sort b
 
 --
 -- Day 3
