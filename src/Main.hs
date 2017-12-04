@@ -7,9 +7,23 @@ import qualified Data.Vector as V ((!?), fromList, ifoldl, length)
 
 main :: IO ()
 main = do
-  putStrLn $ show $ divChecksum sampleSheet
+  putStrLn $ show $ manhattanDistance 325489
 
+--
+-- Day 3
+--
+
+getCircle :: Int -> Int
+getCircle index = (if num `mod` 2 == 0 then num - 1 else num) `div` 2
+  where num = ceiling $ sqrt $ fromIntegral index
+
+manhattanDistance :: Int -> Int
+manhattanDistance i = circle + (abs $ (i - 1) `mod` (2 * circle) - circle)
+  where circle = getCircle i
+
+--
 -- Day 2
+--
 
 checksum :: [[Int]] -> Int
 checksum = sum . map rowChecksum
@@ -31,7 +45,9 @@ sampleSheet =
   , [3, 8, 6, 5]
   ]
 
+--
 -- Day 1
+--
 
 captchaSum :: String -> Int
 captchaSum input = snd $ foldl helper (Nothing, 0) input
