@@ -2,12 +2,12 @@ name:                aoc
 version:             0.1.0.0
 -- synopsis:
 -- description:
-homepage:            https://github.com/githubuser/aoc#readme
+homepage:            https://github.com/mthadley/aoc2017#readme
 license:             BSD3
 license-file:        LICENSE
-author:              Author name here
-maintainer:          example@example.com
-copyright:           2017 Author name here
+author:              Michael Hadley
+maintainer:          mikethadley@gmail.com
+copyright:           2017 Michael Hadley
 category:            Web
 build-type:          Simple
 cabal-version:       >=1.10
@@ -16,6 +16,10 @@ extra-source-files:  README.md
 executable aoc
   hs-source-dirs:      src
   main-is:             Main.hs
+  other-modules:       Day1
+                      , Day2
+                      , Day3
+                      , Day4
   default-language:    Haskell2010
   build-depends:       base >= 4.7 && < 5
                       , vector
