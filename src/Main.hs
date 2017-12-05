@@ -1,14 +1,14 @@
 module Main where
 
-import Data.Char
-import Data.Maybe
-import Data.List
+import Data.Char (digitToInt)
+import Data.Maybe (fromMaybe)
+import Data.List (find, sort, group, permutations)
+import qualified Data.Map as M
 import qualified Data.Vector as V ((!?), fromList, ifoldl, length)
 
 main :: IO ()
 main = do
-  passwords <- readPasswords
-  putStrLn $ show $ countWith noAnagrams passwords
+  putStrLn $ show $ nearestSpiralVal 325489
 
 --
 -- Day 4
@@ -43,6 +43,65 @@ getCircle index = (if num `mod` 2 == 0 then num - 1 else num) `div` 2
 manhattanDistance :: Int -> Int
 manhattanDistance i = circle + (abs $ (i - 1) `mod` (2 * circle) - circle)
   where circle = getCircle i
+
+-- Part 2
+
+data Dir = Left | Down | Right | Up
+
+type Point = (Int, Int)
+
+data Spiral = Spiral
+  { getDir :: Dir
+  , getPoint :: Point
+  , getPMap :: M.Map Point Int
+  }
+
+newSpiral :: Spiral
+newSpiral = Spiral Up (1, 0) $ M.fromList [((0, 0), 1), ((1, 0), 1)]
+
+nearestSpiralVal :: Int -> Int
+nearestSpiralVal val = getVal newSpiral
+  where getVal spiral = if spiralVal spiral > val
+                           then spiralVal spiral
+                           else getVal $ nextSpiral spiral
+
+spiralVal :: Spiral -> Int
+spiralVal (Spiral _ point pMap) = fromMaybe 0 $ M.lookup point pMap
+
+nextSpiral :: Spiral -> Spiral
+nextSpiral spiral = Spiral newDir newPoint $ M.insert newPoint (dirSum pMap newPoint) pMap
+  where
+    newDir = if canTurn spiral then succDir dir else dir
+    newPoint = nextPoint newDir $ getPoint spiral
+    pMap = getPMap spiral
+    dir = getDir spiral
+
+dirSum :: M.Map Point Int -> Point -> Int
+dirSum pMap point = sum $ map getValue points
+  where
+    getValue key = fromMaybe 0 $ M.lookup (addPoint key point) pMap
+    points = [(1, 0), (1, 1), (0, 1), (-1, 1), (-1, 0), (-1, -1), (0, -1), (1, -1)]
+
+succDir :: Dir -> Dir
+succDir Main.Left = Down
+succDir Down = Main.Right
+succDir Main.Right = Up
+succDir Up = Main.Left
+
+canTurn :: Spiral -> Bool
+canTurn (Spiral dir point pMap) = not $ M.member key pMap
+  where key = nextPoint (succDir dir) point
+
+addPoint :: Point -> Point -> Point
+addPoint (x1, y1) (x2, y2) = (x1 + x2, y1 + y2)
+
+nextPoint :: Dir -> Point -> Point
+nextPoint dir p1 = addPoint p1 p2
+  where p2 = case dir of
+               Up -> (0, 1)
+               Down -> (0, -1)
+               Main.Left -> (-1, 0)
+               Main.Right -> (1, 0)
 
 --
 -- Day 2
