@@ -1,5 +1,9 @@
 module Main where
 
+import Data.Maybe (fromMaybe)
+import System.Environment (getArgs)
+import Text.Read (readMaybe)
+
 import qualified Day1
 import qualified Day2
 import qualified Day3
@@ -14,11 +18,19 @@ solutions =
   ]
 
 main :: IO ()
-main = printSolutions =<< last solutions
+main = do
+  day <- getDay $ length solutions
+  printParts =<< solutions !! (day - 1)
 
-printSolutions :: (Show a, Show b) => (a, b) -> IO ()
-printSolutions (part1, part2) = do
-  putStr "Part 1: "
-  putStrLn $ show $ part1
-  putStr "Part 2: "
-  putStrLn $ show $ part2
+printParts :: (Show a, Show b) => (a, b) -> IO ()
+printParts (part1, part2) = do
+  putStrLn $ "Part 1: " ++ (show part1)
+  putStrLn $ "Part 2: " ++ (show part2)
+
+getDay :: Int -> IO Int
+getDay defaultDay = do
+  args <- getArgs
+  let day = case args of
+           ["-d", num] -> fromMaybe defaultDay $ readMaybe num
+           otherwise -> defaultDay
+  return $ min defaultDay $ max 1 day
