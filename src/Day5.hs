@@ -1,9 +1,9 @@
 module Day5 where
 
 import qualified Data.Vector.Mutable as M (modify)
-import Data.Maybe (fromMaybe, isNothing)
+import Data.Maybe (fromMaybe)
 import Text.Read (readMaybe)
-import Data.Vector (Vector, fromList, (!?), (//), imap, modify)
+import Data.Vector (Vector, fromList, (!?), modify)
 
 solution :: IO (Int, Int)
 solution = do
