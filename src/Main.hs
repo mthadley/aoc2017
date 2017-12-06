@@ -9,6 +9,7 @@ import qualified Day2
 import qualified Day3
 import qualified Day4
 import qualified Day5
+import qualified Day6
 
 solutions :: [IO (Int, Int)]
 solutions =
@@ -17,6 +18,7 @@ solutions =
   , Day3.solution
   , Day4.solution
   , Day5.solution
+  , Day6.solution
   ]
 
 main :: IO ()
