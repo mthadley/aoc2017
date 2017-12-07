@@ -4,8 +4,11 @@ import Data.Maybe (fromMaybe)
 import Data.Char (digitToInt)
 import qualified Data.Vector as V ((!?), fromList, ifoldl, length)
 
-solution :: IO (Int, Int)
-solution = return (captchaSum input, captchaSumCircular input)
+solution :: IO (String, String)
+solution = return
+  ( show $ captchaSum input
+  , show $ captchaSumCircular input
+  )
 
 captchaSum :: String -> Int
 captchaSum input = snd $ foldl helper (Nothing, 0) input

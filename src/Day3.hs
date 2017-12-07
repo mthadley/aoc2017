@@ -3,8 +3,11 @@ module Day3 where
 import Data.Maybe (fromMaybe)
 import qualified Data.Map as Map
 
-solution :: IO (Int,  Int)
-solution = return (manhattanDistance input, nearestSpiralVal input)
+solution :: IO (String,  String)
+solution = return
+  ( show $ manhattanDistance input
+  , show $ nearestSpiralVal input
+  )
 
 input :: Int
 input = 325489

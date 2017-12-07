@@ -10,8 +10,9 @@ import qualified Day3
 import qualified Day4
 import qualified Day5
 import qualified Day6
+import qualified Day7
 
-solutions :: [IO (Int, Int)]
+solutions :: [IO (String, String)]
 solutions =
   [ Day1.solution
   , Day2.solution
@@ -19,6 +20,7 @@ solutions =
   , Day4.solution
   , Day5.solution
   , Day6.solution
+  , Day7.solution
   ]
 
 main :: IO ()
@@ -26,10 +28,10 @@ main = do
   day <- getDay $ length solutions
   printParts =<< solutions !! (day - 1)
 
-printParts :: (Show a, Show b) => (a, b) -> IO ()
+printParts :: (String, String) -> IO ()
 printParts (part1, part2) = do
-  putStrLn $ "Part 1: " ++ (show part1)
-  putStrLn $ "Part 2: " ++ (show part2)
+  putStrLn $ "Part 1: " ++ part1
+  putStrLn $ "Part 2: " ++ part2
 
 getDay :: Int -> IO Int
 getDay defaultDay = do

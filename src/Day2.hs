@@ -3,8 +3,8 @@ module Day2 where
 import Data.Maybe (fromMaybe)
 import Data.List (find)
 
-solution :: IO (Int, Int)
-solution = return (checksum input, divChecksum input)
+solution :: IO (String, String)
+solution = return (show $ checksum input, show $ divChecksum input)
 
 checksum :: [[Int]] -> Int
 checksum = sum . map rowChecksum

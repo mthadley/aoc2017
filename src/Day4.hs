@@ -2,10 +2,13 @@ module Day4 where
 
 import Data.List (group, sort)
 
-solution :: IO (Int, Int)
+solution :: IO (String, String)
 solution = do
   passwords <- readPasswords
-  return (countWith hasDuplicateWords passwords, countWith noAnagrams passwords)
+  return
+    ( show $ countWith hasDuplicateWords passwords
+    , show $ countWith noAnagrams passwords
+    )
 
 countWith :: (String -> Bool) -> [String] -> Int
 countWith f = length . filter f

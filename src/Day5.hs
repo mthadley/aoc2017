@@ -5,10 +5,10 @@ import Data.Maybe (fromMaybe)
 import Text.Read (readMaybe)
 import Data.Vector (Vector, fromList, (!?), modify)
 
-solution :: IO (Int, Int)
+solution :: IO (String, String)
 solution = do
   jumps <- getInputJumps
-  return (jumpCountAdd jumps, jumpCountAddThree jumps)
+  return (show $ jumpCountAdd jumps, show $ jumpCountAddThree jumps)
 
 data CPU = CPU
   { getJumps :: Vector Int

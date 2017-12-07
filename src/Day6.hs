@@ -4,9 +4,9 @@ import Data.Set (insert, member, singleton)
 import Data.Maybe (fromMaybe)
 import Data.Sequence (Seq, adjust, elemIndexL, fromList, index, update)
 
-solution :: IO (Int, Int)
+solution :: IO (String, String)
 solution = do
-  return (distToFirstCycle input, findCycleLength input)
+  return (show $ distToFirstCycle input, show $ findCycleLength input)
 
 input :: Seq Int
 input = fromList [5, 1, 10, 0, 1, 7, 13, 14, 3, 12, 8, 10, 7, 12, 0, 6]
