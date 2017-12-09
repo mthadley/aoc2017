@@ -10,17 +10,27 @@ solution = do
   input <- readInstructions
   return
     ( show $ getMaxRegister input
-    , "1"
+    , show $ getMaxInsertedValue input
     )
 
 getMaxRegister :: [Instruction] -> Int
-getMaxRegister = maximum . map snd . M.toList . foldl process M.empty
+getMaxRegister = maximum . map snd . M.toList . foldl helper M.empty
+  where helper regs ins = fst $ process regs ins
 
-process :: M.Map String Int -> Instruction -> M.Map String Int
+getMaxInsertedValue :: [Instruction] -> Int
+getMaxInsertedValue = snd . foldl helper (M.empty, 0)
+  where
+    helper (regs, maxValue) i = mapSnd (max maxValue) $ process regs i
+
+process :: M.Map String Int -> Instruction -> (M.Map String Int, Int)
 process regs (Instruction target op amount condReg comp condAmount) =
-  if comp (M.findWithDefault 0 condReg regs) condAmount
-     then M.alter (Just . (flip op) amount . fromMaybe 0) target regs
-     else regs
+  if not $ comp (M.findWithDefault 0 condReg regs) condAmount
+     then (regs, 0)
+     else let val = (flip op) amount $ M.findWithDefault 0 target regs
+           in (M.insert target val regs, val)
+
+mapSnd :: (b -> c) -> (a, b) -> (a, c)
+mapSnd f (a, b) = (a, f b)
 
 data Instruction = Instruction
   { getTarget :: String
