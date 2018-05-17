@@ -70,28 +70,28 @@ data Tower = Tower
 readTowers :: IO [Tower]
 readTowers = do
   input <- readFile "src/day7_towers.txt"
-  return $ fst $ head $ P.readP_to_S towers input
+  return $ fst $ head $ P.readP_to_S parseTowers input
 
-towers :: ReadP [Tower]
-towers = many1 tower <* P.eof
+parseTowers :: ReadP [Tower]
+parseTowers = many1 parseTower <* P.eof
 
-tower :: ReadP Tower
-tower =
+parseTower :: ReadP Tower
+parseTower =
   Tower
     <$> name
     <* P.skipSpaces
     <*> P.between (P.char '(') (P.char ')') number
-    <*> P.option [] leaves
+    <*> P.option [] parseLeaves
     <* P.char '\n'
 
-leaves :: ReadP [String]
-leaves = P.skipSpaces
+parseLeaves :: ReadP [String]
+parseLeaves = P.skipSpaces
   <* P.string "->"
   <* P.skipSpaces
   *> P.sepBy1 name (P.string ", ")
 
 name :: ReadP String
-name = P.many1 $ P.satisfy (\char -> char >= 'a' && char <= 'z')
+name = P.many1 $ P.satisfy (\c -> c >= 'a' && c <= 'z')
 
 number :: ReadP Int
-number = read <$> (P.many1 $ P.satisfy (\char -> char >= '0' && char <= '9'))
+number = read <$> (P.many1 $ P.satisfy (\c -> c >= '0' && c <= '9'))

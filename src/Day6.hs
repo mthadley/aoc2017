@@ -6,10 +6,13 @@ import Data.Sequence (Seq, adjust, elemIndexL, fromList, index, update)
 
 solution :: IO (String, String)
 solution = do
-  return (show $ distToFirstCycle input, show $ findCycleLength input)
+  return
+    (show $ distToFirstCycle problemInput
+    , show $ findCycleLength problemInput
+    )
 
-input :: Seq Int
-input = fromList [5, 1, 10, 0, 1, 7, 13, 14, 3, 12, 8, 10, 7, 12, 0, 6]
+problemInput :: Seq Int
+problemInput = fromList [5, 1, 10, 0, 1, 7, 13, 14, 3, 12, 8, 10, 7, 12, 0, 6]
 
 distToFirstCycle :: Seq Int -> Int
 distToFirstCycle = fst . findRepeat
@@ -40,6 +43,6 @@ redistribute banks = applyToBanks (maxIndex + 1) (index banks maxIndex) newBanks
 applyToBanks :: Int -> Int -> Seq Int -> Seq Int
 applyToBanks _ 0 banks = banks
 applyToBanks startIndex value banks =
-  applyToBanks (index + 1) (value - 1)
-    $ adjust ((+) 1) index banks
-      where index = startIndex `mod` length banks
+  applyToBanks (i + 1) (value - 1)
+    $ adjust ((+) 1) i banks
+      where i = startIndex `mod` length banks

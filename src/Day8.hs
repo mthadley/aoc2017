@@ -1,6 +1,5 @@
 module Day8 where
 
-import Data.Maybe (fromMaybe)
 import Control.Applicative ((<|>))
 import qualified Data.Map as M
 import Text.ParserCombinators.ReadP as P
@@ -74,10 +73,10 @@ operation :: ReadP (Int -> Int -> Int)
 operation = ((+) <$ P.string "inc") <|> ((-) <$ P.string "dec")
 
 name :: ReadP String
-name = P.many1 $ P.satisfy (\char -> char >= 'a' && char <= 'z')
+name = P.many1 $ P.satisfy (\c -> c >= 'a' && c <= 'z')
 
 number :: ReadP Int
 number = read <$> ((++) <$> P.option "" (P.string "-") <*> digits)
 
 digits :: ReadP String
-digits = P.many1 $ P.satisfy (\char -> char >= '0' && char <= '9')
+digits = P.many1 $ P.satisfy (\c -> c >= '0' && c <= '9')

@@ -42,5 +42,5 @@ getDay defaultDay = do
   args <- getArgs
   let day = case args of
            ["-d", num] -> fromMaybe defaultDay $ readMaybe num
-           otherwise -> defaultDay
+           _ -> defaultDay
   return $ min defaultDay $ max 1 day

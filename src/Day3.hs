@@ -14,7 +14,7 @@ input = 325489
 
 getCircle :: Int -> Int
 getCircle index = (if num `mod` 2 == 0 then num - 1 else num) `div` 2
-  where num = ceiling $ sqrt $ fromIntegral index
+  where num = (ceiling :: Double -> Int) $ sqrt $ fromIntegral index
 
 manhattanDistance :: Int -> Int
 manhattanDistance i = circle + (abs $ (i - 1) `mod` (2 * circle) - circle)
