@@ -1,8 +1,8 @@
 module Main where
 
-import Data.Maybe (fromMaybe)
-import System.Environment (getArgs)
-import Text.Read (readMaybe)
+import           Data.Maybe         (fromMaybe)
+import           System.Environment (getArgs)
+import           Text.Read          (readMaybe)
 
 import qualified Day1
 import qualified Day2
@@ -42,5 +42,5 @@ getDay defaultDay = do
   args <- getArgs
   let day = case args of
            ["-d", num] -> fromMaybe defaultDay $ readMaybe num
-           _ -> defaultDay
+           _           -> defaultDay
   return $ min defaultDay $ max 1 day

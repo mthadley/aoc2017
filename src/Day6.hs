@@ -1,8 +1,9 @@
 module Day6 where
 
-import Data.Set (insert, member, singleton)
-import Data.Maybe (fromMaybe)
-import Data.Sequence (Seq, adjust, elemIndexL, fromList, index, update)
+import           Data.Maybe    (fromMaybe)
+import           Data.Sequence (Seq, adjust, elemIndexL, fromList, index,
+                                update)
+import           Data.Set      (insert, member, singleton)
 
 solution :: IO (String, String)
 solution = do

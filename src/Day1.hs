@@ -1,8 +1,8 @@
 module Day1 where
 
-import Data.Maybe (fromMaybe)
-import Data.Char (digitToInt)
-import qualified Data.Vector as V ((!?), fromList, ifoldl, length)
+import           Data.Char   (digitToInt)
+import           Data.Maybe  (fromMaybe)
+import qualified Data.Vector as V (fromList, ifoldl, length, (!?))
 
 solution :: IO (String, String)
 solution = return
@@ -26,7 +26,7 @@ captchaSumCircular input = V.ifoldl helper 0 vec
     vec = V.fromList input
     inputLength = V.length vec
     getNext (Just x) next = if next == x then x else 0
-    getNext Nothing _ = 0
+    getNext Nothing _     = 0
     helper total i next =
       let half = vec V.!? (mod (i + inputLength `div` 2) inputLength)
       in (+) total $ getNext (digitToInt <$> half) (digitToInt next)

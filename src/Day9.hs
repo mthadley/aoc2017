@@ -28,9 +28,9 @@ getGarbage input = let (total, _, _) = foldl garbage (0, False, False) input
                   in total
 
 garbage :: (Int, Bool, Bool) -> Char -> (Int, Bool, Bool)
-garbage (total, inGarbage, True) _ = (total, inGarbage, False)
-garbage (total, inGarbage, _) '!' = (total, inGarbage, True)
-garbage (total, True, inEscape) '>' = (total, False, inEscape)
-garbage (total, False, inEscape) '<' = (total, True, inEscape)
-garbage (total, True, inEscape) _ = (total + 1, True, inEscape)
+garbage (total, inGarbage, True) _     = (total, inGarbage, False)
+garbage (total, inGarbage, _) '!'      = (total, inGarbage, True)
+garbage (total, True, inEscape) '>'    = (total, False, inEscape)
+garbage (total, False, inEscape) '<'   = (total, True, inEscape)
+garbage (total, True, inEscape) _      = (total + 1, True, inEscape)
 garbage (total, inGarbage, inEscape) _ = (total, inGarbage, inEscape)

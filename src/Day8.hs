@@ -1,8 +1,8 @@
 module Day8 where
 
-import Control.Applicative ((<|>))
-import qualified Data.Map as M
-import Text.ParserCombinators.ReadP as P
+import           Control.Applicative          ((<|>))
+import qualified Data.Map                     as M
+import           Text.ParserCombinators.ReadP as P
 
 solution :: IO (String, String)
 solution = do
@@ -32,11 +32,11 @@ mapSnd :: (b -> c) -> (a, b) -> (a, c)
 mapSnd f (a, b) = (a, f b)
 
 data Instruction = Instruction
-  { getTarget :: String
-  , getOp :: Int -> Int -> Int
-  , getAmount :: Int
-  , getCondReg :: String
-  , getComp :: Int -> Int -> Bool
+  { getTarget     :: String
+  , getOp         :: Int -> Int -> Int
+  , getAmount     :: Int
+  , getCondReg    :: String
+  , getComp       :: Int -> Int -> Bool
   , getCondAmount :: Int
   }
 

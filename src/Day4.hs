@@ -1,6 +1,6 @@
 module Day4 where
 
-import Data.List (group, sort)
+import           Data.List (group, sort)
 
 solution :: IO (String, String)
 solution = do

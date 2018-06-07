@@ -1,7 +1,7 @@
 module Day2 where
 
-import Data.Maybe (fromMaybe)
-import Data.List (find)
+import           Data.List  (find)
+import           Data.Maybe (fromMaybe)
 
 solution :: IO (String, String)
 solution = return (show $ checksum input, show $ divChecksum input)

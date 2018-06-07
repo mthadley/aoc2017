@@ -1,13 +1,13 @@
 module Day7 where
 
-import qualified Data.Map as M
-import Data.List (find, groupBy, sortBy)
-import Data.Maybe (fromMaybe, mapMaybe)
-import qualified Data.Set as S
-import Text.ParserCombinators.ReadP as P
-import Control.Applicative ((<|>))
-import Control.Monad (msum)
-import Data.Function (on)
+import           Control.Applicative          ((<|>))
+import           Control.Monad                (msum)
+import           Data.Function                (on)
+import           Data.List                    (find, groupBy, sortBy)
+import qualified Data.Map                     as M
+import           Data.Maybe                   (fromMaybe, mapMaybe)
+import qualified Data.Set                     as S
+import           Text.ParserCombinators.ReadP as P
 
 solution :: IO (String, String)
 solution = do
@@ -60,7 +60,7 @@ getTowers :: M.Map String Tower -> [String] -> [Tower]
 getTowers towerMap = mapMaybe ((flip M.lookup) towerMap)
 
 data Tower = Tower
-  { getName :: String
+  { getName   :: String
   , getWeight :: Int
   , getLeaves :: [String]
   }

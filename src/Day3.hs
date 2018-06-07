@@ -1,7 +1,7 @@
 module Day3 where
 
-import Data.Maybe (fromMaybe)
-import qualified Data.Map as Map
+import qualified Data.Map   as Map
+import           Data.Maybe (fromMaybe)
 
 solution :: IO (String,  String)
 solution = return
@@ -27,9 +27,9 @@ data Dir = Left | Down | Right | Up
 type Point = (Int, Int)
 
 data Spiral = Spiral
-  { getDir :: Dir
+  { getDir   :: Dir
   , getPoint :: Point
-  , getPMap :: Map.Map Point Int
+  , getPMap  :: Map.Map Point Int
   }
 
 newSpiral :: Spiral
@@ -59,10 +59,10 @@ dirSum pMap point = sum $ map getValue points
     points = [(1, 0), (1, 1), (0, 1), (-1, 1), (-1, 0), (-1, -1), (0, -1), (1, -1)]
 
 succDir :: Dir -> Dir
-succDir Day3.Left = Down
-succDir Down = Day3.Right
+succDir Day3.Left  = Down
+succDir Down       = Day3.Right
 succDir Day3.Right = Up
-succDir Up = Day3.Left
+succDir Up         = Day3.Left
 
 canTurn :: Spiral -> Bool
 canTurn (Spiral dir point pMap) = not $ Map.member key pMap
@@ -74,7 +74,7 @@ addPoint (x1, y1) (x2, y2) = (x1 + x2, y1 + y2)
 nextPoint :: Dir -> Point -> Point
 nextPoint dir p1 = addPoint p1 p2
   where p2 = case dir of
-               Up -> (0, 1)
-               Down -> (0, -1)
-               Day3.Left -> (-1, 0)
+               Up         -> (0, 1)
+               Down       -> (0, -1)
+               Day3.Left  -> (-1, 0)
                Day3.Right -> (1, 0)
